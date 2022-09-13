@@ -38,10 +38,10 @@ Tipo abstracto de dato
 
 Consiste en un conjunto de **nodos** y **aristas** que definen relaciones entre los nodos.
 
-Las dos propiedades basicas de un grafo estan dadas por la caracteristicas de sus aristas:
+Las dos propiedades básicas de un grafo están dadas por la características de sus aristas:
 
-- ➡️ Ordenacion (direccionalidad)
-- #️⃣ Ponderacion 
+- ➡️ Ordenación (direccionalidad)
+- #️⃣ Ponderación 
 
 <div class="abs-br m-4 flex gap-2">
   <a href="https://graph-examples.uruguayan.ninja/pages/nested/index.html" target="_blank" alt="GitHub"
@@ -56,18 +56,34 @@ layout: iframe-right
 url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
 ---
 
-# Ordenacion y Ponderacion
+# Ordenación y Ponderación
 
 4 combinaciones posibles
 
-- **Dirigido** : Las aristas tienen una direccion. Ejemplo: Instagram (seguir a alguien) 
+- **Dirigido** : Las aristas tienen una dirección. Ejemplo: Instagram (seguir a alguien) 
 
-- **No dirigido** : Las aristas no tienen una direccion (es en ambas direcciones). Ejemplo: Facebook (amistad)
+- **No dirigido** : Las aristas no tienen una dirección (es en ambas direcciones). Ejemplo: Facebook (amistad)
 
 - **Ponderado** : Las aristas tienen un peso asociado. Ejemplo: Mapa de carreteras (distancia entre ciudades)
 
-- **No ponderado** : Las aristas no tienen un peso asociado. Ejemplo: Arbol genealogico (parentesco)
+- **No ponderado** : Las aristas no tienen un peso asociado. Ejemplo: Arbol genealógico (parentesco)
 
+
+
+<div class="abs-br m-4 flex gap-2">
+  <a href="https://graph-examples.uruguayan.ninja/pages/graph-types/index.html" target="_blank" alt="GitHub"
+    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
+    <zondicons:screen-full/>
+  </a>
+</div>
+
+---
+preload: false
+layout: iframe-right
+url: https://graph-examples.uruguayan.ninja/pages/density/index.html
+---
+
+# Densidad
 
 
 <div class="abs-br m-4 flex gap-2">
