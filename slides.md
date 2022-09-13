@@ -7,6 +7,7 @@ class: 'text-center'
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
 lineNumbers: true
+colorSchema: 'dark'
 drawings:
   persist: false
 css: windicss
