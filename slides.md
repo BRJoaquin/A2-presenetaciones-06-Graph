@@ -68,8 +68,6 @@ url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
 
 - **No ponderado** : Las aristas no tienen un peso asociado. Ejemplo: Arbol genealógico (parentesco)
 
-
-
 <div class="abs-br m-4 flex gap-2">
   <a href="https://graph-examples.uruguayan.ninja/pages/graph-types/index.html" target="_blank" alt="GitHub"
     class="text-l icon-btn opacity-50 !border-none !hover:text-white">
@@ -85,14 +83,50 @@ url: https://graph-examples.uruguayan.ninja/pages/density/index.html
 
 # Densidad
 
+A >> V ?
+
+La densidad de un grafo se define como la relación entre el número de aristas y el número máximo de aristas que podría tener el grafo.
+
+Cuál es el máximo número de aristas que puede tener un grafo?
+
+- **Dirigido** : A_max = V^2
+- **No dirigido** : A_max = V(V+1)/2
+
 
 <div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/graph-types/index.html" target="_blank" alt="GitHub"
+  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
     class="text-l icon-btn opacity-50 !border-none !hover:text-white">
     <zondicons:screen-full/>
   </a>
 </div>
 
+
+---
+preload: false
+layout: iframe-right
+url: https://graph-examples.uruguayan.ninja/pages/density/index.html
+---
+
+# Densidad
+
+y su importancia
+
+La densidad de un grafo es un indicador de la cantidad de información que puede contener.
+
+Jugará un papel importante en el orden de los algoritmos 🕓 que se apliquen sobre el grafo y sobre todo
+**cómo se implementan** 👩‍💻.
+
+- **Disperso** = implementación con listas de adyacencia
+- **Denso** = implementación con matrices de adyacencia
+
+**Nota**: cabe destacar que en la práctica son muy pocos los grafos que son densos. Por qué?
+
+<div class="abs-br m-4 flex gap-2">
+  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
+    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
+    <zondicons:screen-full/>
+  </a>
+</div>
 
 ---
 layout: center
