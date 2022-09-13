@@ -27,6 +27,7 @@ The last comment block of each slide will be treated as slide notes. It will be 
 -->
 
 ---
+preload: false
 layout: iframe-right
 url: https://graph-examples.uruguayan.ninja/pages/nested/index.html
 ---
@@ -50,6 +51,7 @@ Las dos propiedades basicas de un grafo estan dadas por la caracteristicas de su
 </div>
 
 ---
+preload: false
 layout: iframe-right
 url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
 ---
