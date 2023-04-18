@@ -1,16 +1,15 @@
 ---
-# try also 'default' to start simple
-theme: default
+theme: seriph
 background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
 lineNumbers: true
-colorSchema: 'dark'
 drawings:
   persist: false
-css: windicss
+css: unocss
+transition: fade-out
 ---
 
 # Grafos
@@ -36,7 +35,7 @@ url: https://graph-examples.uruguayan.ninja/pages/nested/index.html
 
 Tipo abstracto de dato
 
-Consiste en un conjunto de **nodos** y **aristas** que definen relaciones entre los nodos.
+Consiste en un conjunto de **nodos/vertices** y **aristas** que definen relaciones entre los nodos.
 
 Las dos propiedades básicas de un grafo están dadas por la características de sus aristas:
 
@@ -60,11 +59,11 @@ url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
 
 4 combinaciones posibles
 
-- **Dirigido** : Las aristas tienen una dirección. Ejemplo: Instagram (seguir a alguien) 
+- **Dirigido** ➡️ : Las aristas tienen una dirección. Ejemplo: Instagram (seguir a alguien) 
 
 - **No dirigido** : Las aristas no tienen una dirección (es en ambas direcciones). Ejemplo: Facebook (amistad)
 
-- **Ponderado** : Las aristas tienen un peso asociado. Ejemplo: Mapa de carreteras (distancia entre ciudades)
+- **Ponderado** 🏋️‍♀️ : Las aristas tienen un peso asociado. Ejemplo: Mapa de carreteras (distancia entre ciudades)
 
 - **No ponderado** : Las aristas no tienen un peso asociado. Ejemplo: Arbol genealógico (parentesco)
 
@@ -83,15 +82,20 @@ url: https://graph-examples.uruguayan.ninja/pages/density/index.html
 
 # Densidad
 
-A >> V ?
+Relación entre el número de aristas y el número de aristas posibles
 
-La densidad de un grafo se define como la relación entre el número de aristas y el número máximo de aristas que podría tener el grafo.
+- **Denso** : Donde la cantidad de aristas es similar al número de aristas posibles. O(A)≈O(V^2)
+- **Disperso** : Donde la cantidad de aristas es muy pequeño en comparación con el número de aristas posibles. O(A)<<O(V^2)
 
-Cuál es el máximo número de aristas que puede tener un grafo?
+<br>
 
-- **Dirigido** : A_max = V^2
-- **No dirigido** : A_max = V(V+1)/2
+> V = Número de vértices
 
+<br>
+
+> A = Número de aristas
+
+¿Cuál es la cantidad de aristas posibles en un grafo? 🤔
 
 <div class="abs-br m-4 flex gap-2">
   <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
@@ -100,6 +104,37 @@ Cuál es el máximo número de aristas que puede tener un grafo?
   </a>
 </div>
 
+---
+
+# Ciclos
+
+Cíclico o No Cíclico
+
+Un grafo cíclico contiene al menos un ciclo, es decir un camino que comienza y termina en el mismo nodo.
+
+```mermaid
+graph LR;
+A --> B;
+B --> C;
+C --> D;
+D --> E;
+D --> A;
+```
+
+Un grafo no cíclico no contiene ciclos.
+
+```mermaid
+graph LR;
+A --> B;
+B --> C;
+C --> D;
+D --> E;
+A --> D;
+```
+
+<br>
+
+> Un camino es un conjunto de aristas que conectan un nodo con otro. (no puede haber aristas repetidas)
 
 ---
 preload: false
@@ -127,6 +162,24 @@ Jugará un papel importante en el orden de los algoritmos 🕓 que se apliquen s
     <zondicons:screen-full/>
   </a>
 </div>
+
+---
+layout: two-cols
+---
+
+<template v-slot:default>
+
+# Matriz de Adyacencia
+Implementación más simple de un grafo
+
+
+</template>
+<template v-slot:right>
+
+# Lista de Adyacencia
+Implementación más eficiente de un grafo
+
+</template>
 
 ---
 layout: center
