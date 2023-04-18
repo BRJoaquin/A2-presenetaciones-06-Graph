@@ -105,6 +105,31 @@ Relación entre el número de aristas y el número de aristas posibles
 </div>
 
 ---
+preload: false
+layout: iframe-right
+url: https://graph-examples.uruguayan.ninja/pages/density/index.html
+---
+
+# Densidad
+
+La densidad de un grafo es un indicador de la cantidad de información que puede contener.
+
+Jugará un papel importante en el orden de los algoritmos 🕓 que se apliquen sobre el grafo y sobre todo
+**cómo se implementan** 👩‍💻.
+
+- **Disperso** = implementación con listas de adyacencia
+- **Denso** = implementación con matrices de adyacencia
+
+**Nota**: cabe destacar que en la práctica son muy pocos los grafos que son densos. Por qué?
+
+<div class="abs-br m-4 flex gap-2">
+  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
+    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
+    <zondicons:screen-full/>
+  </a>
+</div>
+
+---
 
 # Ciclos
 
@@ -136,32 +161,7 @@ A --> D;
 
 > Un camino es un conjunto de aristas que conectan un nodo con otro. (no puede haber aristas repetidas)
 
----
-preload: false
-layout: iframe-right
-url: https://graph-examples.uruguayan.ninja/pages/density/index.html
----
 
-# Densidad
-
-y su importancia
-
-La densidad de un grafo es un indicador de la cantidad de información que puede contener.
-
-Jugará un papel importante en el orden de los algoritmos 🕓 que se apliquen sobre el grafo y sobre todo
-**cómo se implementan** 👩‍💻.
-
-- **Disperso** = implementación con listas de adyacencia
-- **Denso** = implementación con matrices de adyacencia
-
-**Nota**: cabe destacar que en la práctica son muy pocos los grafos que son densos. Por qué?
-
-<div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
-    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
-    <zondicons:screen-full/>
-  </a>
-</div>
 
 ---
 layout: two-cols
