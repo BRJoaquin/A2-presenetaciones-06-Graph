@@ -169,6 +169,17 @@ layout: two-cols
 
 <template v-slot:default>
 
+# Lista de Adyacencia
+Implementación más eficiente de un grafo
+
+Una lista de adyacencia es un array de listas, una para cada nodo del grafo.
+
+- Cada lista contiene los nodos adyacentes al nodo correspondiente (dado por el índice del array).
+- Es una forma más eficiente de representar grafos dispersos ya que **no se almacenan aristas que no existen**.
+
+</template>
+<template v-slot:right>
+
 # Matriz de Adyacencia
 Implementación más simple de un grafo
 
@@ -180,19 +191,6 @@ Una matriz de adyacencia es una matriz cuadrada utilizada para representar un gr
 <br>
 
 > En caso de ser no dirigido, la matriz es simétrica.
-
-
-</template>
-<template v-slot:right>
-
-# Lista de Adyacencia
-Implementación más eficiente de un grafo
-
-Una lista de adyacencia es un array de listas, una para cada nodo del grafo.
-
-- Cada lista contiene los nodos adyacentes al nodo correspondiente (dado por el índice del array).
-- Es una forma más eficiente de representar grafos dispersos ya que **no se almacenan aristas que no existen**.
-
 
 </template>
 
@@ -223,6 +221,190 @@ Donde:
 
 ---
 
+# Recorridas
+BFS & DFS
+
+Las recorridas son un algoritmo que permite recorrer un grafo de manera ordenada.
+Existen dos tipos de recorridas:
+- **BFS** (Breadth First Search o búsqueda en anchura) 
+- **DFS** (Depth First Search o búsqueda en profundidad)
+
+<br>
+<div class="container flex justify-center items-center">
+  <img src="/dfs-vs-bfs.gif" class="w-120">
+</div>
+---
+
+# BFS
+Búsqueda en anchura
+
+Explora un grafo visitando primero todos los vecinos de un nodo inicial antes de pasar a sus vecinos de segundo nivel y así sucesivamente.
+
+<br>
+<div class="container flex justify-center items-center">
+  <img src="/bfs.gif" class="w-50">
+</div>
+
+<br>
+
+> Es importante destacar que el algoritmo no tiene en cuenta el orden de los vecinos.
+
+---
+
+# BFS
+Pseudocódigo
+
+```
+function BFS(start, graph)
+  create a queue Q
+  mark start as visited
+  enqueue start into Q
+
+  while Q is not empty
+    dequeue a node N from Q
+    process N
+
+    for each neighbor of N
+      if neighbor is not visited
+        mark neighbor as visited
+        enqueue neighbor into Q
+  end while
+end function
+```
+<br>
+
+> Qué orden de complejidad tiene este algoritmo? 🤔
+
+<br>
+
+> Visualización: [https://www.cs.usfca.edu/~galles/visualization/BFS.html](https://www.cs.usfca.edu/~galles/visualization/BFS.html)
+
+---
+
+# BFS
+Código
+
+```cpp {all|1|4-7|10-11|14-15|17|19|20|25|26|27-28|all} {maxHeight:'400px'}
+void Graph_BFS(Graph* g, int s)
+{
+    // Mark all the vertices as not visited
+    bool visited[MAX_VERTICES];
+    for (int i = 0; i < g->V; i++) {
+        visited[i] = false;
+    }
+ 
+    // Create a queue for BFS
+    int queue[MAX_VERTICES];
+    int front = 0, rear = 0;
+ 
+    // Mark the current node as visited and enqueue it
+    visited[s] = true;
+    queue[rear++] = s;
+ 
+    while (front != rear) {
+        // Dequeue a vertex from queue and print it
+        s = queue[front++];
+        printf("%d ", s);
+ 
+        // Get all adjacent vertices of the dequeued
+        // vertex s. If a adjacent has not been visited,
+        // then mark it visited and enqueue it
+        for (int adjacent = 0; adjacent < g->V; adjacent++) {
+            if (g->adj[s][adjacent] && !visited[adjacent]) {
+                visited[adjacent] = true;
+                queue[rear++] = adjacent;
+            }
+        }
+    }
+}
+```
+
+---
+
+# BFS
+Usos
+
+- Para encontrar el camino más corto entre dos nodos (no ponderado).
+- Busqueda de los K vecinos más cercanos.
+- Para detectar si un grafo es bipartito.
+- Para detectar si un grafo no dirigido es conexo.
+- Detectar la cantidad de componentes conexos de un grafo no dirigido.
+
+---
+
+# DFS
+Búsqueda en profundidad
+
+Explora un grafo visitando un nodo inicial y luego yendo lo más profundo posible a lo largo de cada rama antes de retroceder. DFS puede no encontrar el camino más corto, pero es útil para explorar estructuras de datos más complejas y detectar ciclos.
+
+<br>
+<div class="container flex justify-center items-center">
+  <img src="/dfs.gif" class="w-50">
+</div>
+
+<br>
+
+> Es importante destacar que el algoritmo no tiene en cuenta el orden de los vecinos.
+
+---
+
+# DFS
+Pseudocódigo
+
+```
+function DFS(start, graph)
+  mark start as visited
+  process start
+
+  for each neighbor of start
+    if neighbor is not visited
+      call DFS(neighbor, graph)
+    end if
+  end for
+end function
+```
+<br>
+
+> Qué orden de complejidad tiene este algoritmo? 🤔
+
+<br>
+
+> Visualización: [https://www.cs.usfca.edu/~galles/visualization/DFS.html](https://www.cs.usfca.edu/~galles/visualization/DFS.html)
+
+---
+
+# DFS
+Código
+
+```cpp {all|5|6|10-11|12-13|all} {maxHeight:'400px'}
+void Graph::DFS(int v)
+{
+    // Mark the current node as visited and
+    // print it
+    visited[v] = true;
+    cout << v << " ";
+ 
+    // Recur for all the vertices adjacent
+    // to this vertex
+    list<int>::iterator i;
+    for (i = adj[v].begin(); i != adj[v].end(); ++i)
+        if (!visited[*i])
+            DFS(*i);
+}
+```
+
+---
+
+# DFS
+Usos
+
+- Para detectar ciclos en un grafo.
+- Para detectar componentes fuertemente conexas en un grafo dirigido. [Algoritmo de Kosaraju](https://www.geeksforgeeks.org/strongly-connected-components/).
+- Para detectar si un grafo no dirigido es conexo.
+- Detectar la cantidad de componentes conexos de un grafo no dirigido.
+
+---
+
 # Orden topológico
 Qué es un orden topológico?
 
@@ -235,6 +417,7 @@ Un ordenamiento topológico de un grafo dirigido es **una** secuencia lineal de 
 <div class="container flex justify-center items-center">
   <img src="/ot.png" class="w-130">
 </div>
+<br>
 
 > Si el grafo tiene ciclos, no existe un orden topológico.
 
