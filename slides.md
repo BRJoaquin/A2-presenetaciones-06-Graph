@@ -650,6 +650,42 @@ Dijkstra es un algoritmo para encontrar el camino más corto en un grafo pondera
 <br>
 
 > Visualización: https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html
+
+--- 
+
+# Algoritmo de Dijkstra
+Código
+
+```cpp {all|2-3|5-6|8|9-11|13|14|16|17-18|20|21|22-23|all} {maxHeight:'400px'}
+void dijkstra(int start, int n) {
+    for (int i = 0; i < n; i++) distances[i] = INF;
+    distances[start] = 0;
+
+    PriorityQueue pq;
+    pq.push({0, start});
+
+    while (!pq.empty()) {
+        int dist = pq.top().first;
+        int node = pq.top().second;
+        pq.pop();
+
+        if (visited[node]) continue;
+        visited[node] = true;
+
+        for (int i = 0; i < edge_count[node]; i++) {
+            int neighbor = edges[graph[node][i]].v;
+            int weight = edges[graph[node][i]].w;
+
+            int new_dist = distances[node] + weight;
+            if (new_dist < distances[neighbor]) {
+                distances[neighbor] = new_dist;
+                pq.push({new_dist, neighbor});
+            }
+        }
+    }
+}
+```
+
 ---
 
 # Algoritmo de Dijkstra
@@ -661,8 +697,72 @@ Procesar todos los vértices ($|V|$): Dijkstra explora cada vértice del grafo u
 
 Procesar todas las aristas ($|E|$): Para cada vértice seleccionado, el algoritmo de Dijkstra actualiza las distancias de los vértices adyacentes (vecinos) si se encuentra un camino más corto. En el peor de los casos, podría haber que procesar todas las aristas del grafo. Esta parte de la complejidad en tiempo es $O(|E|)$.
 
+---
+
+# Bellman-Ford
+Camino más corto desde un vértice a todos los demás
+
+- A diferencia del algoritmo de Dijkstra, el algoritmo de Bellman-Ford puede manejar grafos dirigidos con aristas de peso negativo.
+- Con el algoritmo de Bellman-Ford, podemos encontrar el camino más corto desde un vértice a todos los demás.
+- Tiene un tiempo de ejecución de $O(|V|.|E|)$.
+
+---
+
+# Bellman-Ford
+Ideas generales
+
+1. Inicializa distancias y visitados. Distancia de origen a origen es 0, y a todos los demás es infinito. Ningún nodo está visitado.
+2. Inicializa una cola fifo con el nodo origen.
+3. Mientras la cola no esté vacía, saca un nodo de la cola.
+4. Para cada nodo adyacente, actualiza la distancia y de ser necesario (mejora el costo), agrega el nodo a la cola.
 
 
+> El "problema" es que un nodo puede ser procesado multiples veces.
+
+<br>
+
+> Visualización: https://visualgo.net/en/sssp
+
+
+---
+
+# Bellman-Ford
+Código
+
+```cpp {all||all} {maxHeight:'400px'}
+void bellman_ford(int start) {
+    for (int i = 0; i < n; ++i) distances[i] = INF;
+    distances[start] = 0;
+
+    queue[rear++] = start;
+    in_queue[start] = true;
+
+    while (front != rear) {
+        int u = queue[front++];
+        in_queue[u] = false;
+
+        for (int i = 0; i < m; ++i) {
+            if (edges[i].u == u) {
+                int v = edges[i].v;
+                int w = edges[i].w;
+
+                if (distances[u] != INF && distances[u] + w < distances[v]) {
+                    distances[v] = distances[u] + w;
+
+                    if (!in_queue[v]) {
+                        queue[rear++] = v;
+                        in_queue[v] = true;
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+---
+
+# Floyd-Warshall
 
 ---
 layout: center
