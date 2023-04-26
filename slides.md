@@ -628,7 +628,7 @@ layout: quote
 Camino más corto desde un vértice a todos los demás
 
 - El algoritmo de Dijkstra es un algoritmo de búsqueda de caminos más cortos en grafos ponderados.
-- Tiene un tiempo de ejecución de $O(|E| + |V| log |V|)$ con una implementación de cola de prioridad (heap binario).
+- Tiene un tiempo de ejecución de $O((|E| + |V|) log |V|)$ con una implementación de cola de prioridad (heap binario).
 
 <br>
 
