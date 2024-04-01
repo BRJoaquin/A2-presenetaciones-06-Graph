@@ -1,15 +1,21 @@
 ---
-theme: seriph
+theme: default
+# random image from a curated Unsplash collection by Anthony
+# like them? see https://unsplash.com/collections/94734566/slidev
 background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80
-# apply any windi css classes to the current slide
-class: 'text-center'
+title: Welcome to Slidev
+# apply any unocss classes to the current slide
+class: text-center
 # https://sli.dev/custom/highlighters.html
 highlighter: shiki
-lineNumbers: true
+# https://sli.dev/guide/drawing
 drawings:
   persist: false
-css: unocss
+# slide transition: https://sli.dev/guide/animations#slide-transitions
 transition: fade-out
+lineNumbers: true
+# enable MDC Syntax: https://sli.dev/guide/syntax#mdc-syntax
+mdc: true
 ---
 
 # Grafos
@@ -37,17 +43,25 @@ Tipo abstracto de dato
 
 Consiste en un conjunto de **nodos/vertices** y **aristas** que definen relaciones entre los nodos.
 
+- **Nodo/Vertice** : Representa un objeto o entidad.
+- **Arista** : Representa una relación entre dos nodos.
+
+Vamos a denotar $V$ a la cantidad de nodos y $A$ a la cantidad de aristas.
+
+---
+preload: false
+layout: iframe-right
+url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
+---
+
+# Grafos
+
+Primeras clasificaciones
+
 Las dos propiedades básicas de un grafo están dadas por la características de sus aristas:
 
 - ➡️ Ordenación (direccionalidad)
 - #️⃣ Ponderación 
-
-<div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/nested/index.html" target="_blank" alt="GitHub"
-    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
-    <zondicons:screen-full/>
-  </a>
-</div>
 
 ---
 preload: false
@@ -67,12 +81,12 @@ url: https://graph-examples.uruguayan.ninja/pages/graph-types/index.html
 
 - **No ponderado** : Las aristas no tienen un peso asociado. Ejemplo: Arbol genealógico (parentesco)
 
-<div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/graph-types/index.html" target="_blank" alt="GitHub"
-    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
-    <zondicons:screen-full/>
-  </a>
-</div>
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    <div class="text-center text-sm text-white">
+        <a href="https://graph-examples.uruguayan.ninja/pages/graph-types/index.html" target="_blank" class="underline">Ver más ejemplos</a>
+    </div>
+</footer>
 
 ---
 preload: false
@@ -87,22 +101,13 @@ Relación entre el número de aristas y el número de aristas posibles
 - **Denso** : Donde la cantidad de aristas es similar al número de aristas posibles. O(A)≈O(V^2)
 - **Disperso** : Donde la cantidad de aristas es muy pequeño en comparación con el número de aristas posibles. O(A)<<O(V^2)
 
-<br>
 
-> V = Número de vértices
 
-<br>
+¿Cuál es la cantidad de aristas posibles en un grafo? 🤔 
 
-> A = Número de aristas
+- En un grafo no dirigido: <v-click> $\frac{V(V-1)}{2}$ || $\frac{V(V+1)}{2}$ </v-click>
+- En un grafo dirigido: <v-click> $V(V-1)$ || $V^2$ </v-click>
 
-¿Cuál es la cantidad de aristas posibles en un grafo? 🤔
-
-<div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
-    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
-    <zondicons:screen-full/>
-  </a>
-</div>
 
 ---
 preload: false
@@ -122,18 +127,11 @@ Jugará un papel importante en el orden de los algoritmos 🕓 que se apliquen s
 
 **Nota**: cabe destacar que en la práctica son muy pocos los grafos que son densos. Por qué?
 
-<div class="abs-br m-4 flex gap-2">
-  <a href="https://graph-examples.uruguayan.ninja/pages/density/index.html" target="_blank" alt="GitHub"
-    class="text-l icon-btn opacity-50 !border-none !hover:text-white">
-    <zondicons:screen-full/>
-  </a>
-</div>
-
 ---
 
 # Ciclos
 
-Cíclico o No Cíclico
+Cíclico o Acíclico
 
 Un grafo cíclico contiene al menos un ciclo, es decir un camino que comienza y termina en el mismo nodo.
 
@@ -161,7 +159,95 @@ A --> D;
 
 > Un camino es un conjunto de aristas que conectan un nodo con otro. (no puede haber aristas repetidas)
 
+<br>
 
+> Tener en cuenta: un grafo no dirigido no necesariamente es cíclico.
+
+
+---
+
+# Conexidad
+Cómo se disponen los nodos de un grafo
+
+## Grafo no dirigido
+
+- Conexo: Existe un camino entre cualquier par de nodos.
+- No conexo: Existen nodos que no están conectados.
+
+<br>
+
+## Grafo dirigido
+
+- Fuertemente conexo: Existe un camino entre cualquier par de nodos.
+- Débilmente conexo: Existe un camino entre cualquier par de nodos si se considera el grafo dirigido subyacente.
+- No conexo: Existen nodos que no están conectados, independientemente de la dirección de las aristas.
+
+---
+
+```mermaid
+graph LR;
+    A <--> B;
+    B <--> C;
+    C <--> D;
+    D <--> A;
+    A <--> C;
+    B <--> D;
+```
+
+---
+
+```mermaid
+graph LR;
+    A <--> B;
+    C <--> D;
+    A <--> F;
+```
+
+---
+
+```mermaid
+graph TD;
+    A --> B;
+    B --> C;
+    C --> D;
+    D --> A;
+    A --> C;
+    B --> D;
+```
+
+---
+
+```mermaid
+graph TD;
+    A --> B;
+    C --> D;
+    A --> F;
+    D --> G;
+    G --> C;
+```
+
+---
+
+# Resumen de clasificaciones
+El primer paso es identificar las características del grafo
+
+Hasta ahora podemos clasificar un grafo por:
+- **Ordenación** (dirigido o no dirigido)
+- **Ponderación** (ponderado o no ponderado)
+- **Densidad** (denso o disperso)
+- **Ciclos** (cíclico o acíclico)
+- **Conexidad** (conexo o no conexo)
+
+
+---
+layout: section
+---
+
+# Implementaciones
+Lista de Adyacencia vs Matriz de Adyacencia
+
+Tenemos dos formas de representar un grafo en nuestro programa. 
+<v-click> Cada una tiene sus <span v-mark="{at:1, color: 'blue', type: 'highlight', animationDuration: 4000 }"> ventajas y desventajas.</span> </v-click>
 
 ---
 layout: two-cols
@@ -170,20 +256,24 @@ layout: two-cols
 <template v-slot:default>
 
 # Lista de Adyacencia
-Implementación más eficiente de un grafo
+Implementación eficiente de un grafo
 
-Una lista de adyacencia es un array de listas, una para cada nodo del grafo.
+Una lista de adyacencia es un array de listas, cada celda representa un nodo y cada lista contiene los nodos adyacentes a desde ese nodo.
 
 - Cada lista contiene los nodos adyacentes al nodo correspondiente (dado por el índice del array).
-- Es una forma más eficiente de representar grafos dispersos ya que **no se almacenan aristas que no existen**.
+- Es una forma eficiente (memoria) de representar grafos dispersos ya que **no se almacenan aristas que no existen**.
+
+<br>
+
+> En caso de ser no dirigido, una arista se representa dos veces.
 
 </template>
 <template v-slot:right>
 
 # Matriz de Adyacencia
-Implementación más simple de un grafo
+Implementación simple de un grafo
 
-Una matriz de adyacencia es una matriz cuadrada utilizada para representar un grafo finito. 
+Una matriz de adyacencia es una matriz cuadrada utilizada para representar un grafo. 
 
 - Cada elemento de la matriz representa la arista (o ausencia) entre dos nodos (origen y destino).
 - El valor del elemento indica si hay un arista entre esos nodos y en caso de ser ponderado, el peso de la arista.
@@ -205,19 +295,68 @@ Una matriz de adyacencia es una matriz cuadrada utilizada para representar un gr
 
 ---
 
+# Lista de Adyacencia
+Operaciones básicas
 
-| Característica         | Lista de adyacencia   | Matriz de adyacencia |
-|------------------------|-----------------------|----------------------|
-| Espacio                | O(V + E)              | O(V^2)               |
-| Búsqueda de adyacencia | O(degree(V))          | O(V)                 |
-| Inserción de aristas   | O(1)                  | O(1)                 |
-| Eliminación de aristas | O(degree(V))          | O(1)                 |
-| Eficiencia             | Mejor para grafos dispersos | Mejor para grafos densos |
+- **Inserción de aristas**: Agregar un nodo a la lista de adyacencia de otro nodo.
+- **Eliminación de aristas**: Eliminar un nodo de la lista de adyacencia de otro nodo.
+- **Búsqueda de adyacencia**: Para saber si existe la arista A->B, se busca en la lista de adyacencia de A que contenga a B.
+
+## Preguntas
+
+- ¿Qué contiene cada nodo de la lista de adyacencia?
+- ¿Cómo se representa un grafo no dirigido?
+
+<div class="abs-br m-6 flex gap-2">
+  <img src="/lista_adyacencia.png" class="w-100">
+</div>
+
+---
+
+<<< @/snippets/lista_ady.cpp {all|5-10|13-15|17-19|26-30|all}{maxHeight:'500px'}
+
+---
+
+# Matriz de Adyacencia
+Operaciones básicas
+
+- **Inserción de aristas**: Cambiar el valor de la matriz en la posición correspondiente.
+- **Eliminación de aristas**: Cambiar el valor de la matriz en la posición correspondiente.
+- **Búsqueda de adyacencia**: Para saber si existe la arista A->B, se busca en la matriz en la posición A,B.
+
+## Preguntas
+- ¿Qué representa el valor de la matriz?
+    - ¿Qué valor se le asigna si no hay arista?
+    - ¿Qué valor se le asigna si hay arista?
+    - ¿Qué valor se le asigna si es ponderado?
+    - ¿Qué valor se le asigna si es no ponderado?  
+- ¿Cómo se representa un grafo no dirigido?
+
+<div class="abs-br m-6 flex gap-2">
+  <img src="/matriz_adyacencia.png" class="w-70">
+</div>
+
+---
+
+<<< @/snippets/matriz_ady.cpp {all|4|7-9|11-20|31-35|all}{maxHeight:'500px'}
+
+---
+
+
+| Característica         | Lista de adyacencia     | Matriz de adyacencia   |
+|------------------------|-------------------------|------------------------|
+| Espacio                | $O(V + A)$              | $O(V^2)$               |
+| Búsqueda de adyacencia | $O(degree_{out}(V))$    | $O(V)$                 |
+| Inserción de aristas   | $O(1)$*                 | $O(1)$                 |
+| Eliminación de aristas | $O(degree_{out}(V))$    | $O(1)$                 |
+| Eficiencia             | <span v-mark.circle.red>Mejor para grafos dispersos</span> | <span v-mark.circle.blue>Mejor para grafos densos</span> |
 
 Donde:
-- V es el número de vértices en el grafo.
-- E es el número de aristas en el grafo.
-- degree(V) es el grado del vértice V, es decir, el número de vecinos.
+- $degree_{out}$ es el grado de salida de un nodo.
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    (*) Asumiendo que no hay aristas repetidas.
+</footer>
 
 ---
 
@@ -284,40 +423,7 @@ end function
 # BFS
 Código
 
-```cpp {all|1|4-7|10-11|14-15|17|19|20|25|26|27-28|all} {maxHeight:'400px'}
-void Graph_BFS(Graph* g, int s)
-{
-    // Mark all the vertices as not visited
-    bool visited[MAX_VERTICES];
-    for (int i = 0; i < g->V; i++) {
-        visited[i] = false;
-    }
- 
-    // Create a queue for BFS
-    int queue[MAX_VERTICES];
-    int front = 0, rear = 0;
- 
-    // Mark the current node as visited and enqueue it
-    visited[s] = true;
-    queue[rear++] = s;
- 
-    while (front != rear) {
-        // Dequeue a vertex from queue and print it
-        s = queue[front++];
-        printf("%d ", s);
- 
-        // Get all adjacent vertices of the dequeued
-        // vertex s. If a adjacent has not been visited,
-        // then mark it visited and enqueue it
-        for (int adjacent = 0; adjacent < g->V; adjacent++) {
-            if (g->adj[s][adjacent] && !visited[adjacent]) {
-                visited[adjacent] = true;
-                queue[rear++] = adjacent;
-            }
-        }
-    }
-}
-```
+<<< @/snippets/bfs.cpp {all|1|4-7|10-11|14-15|17|19|20|25|26|27-28|all}{maxHeight:'400px'}
 
 ---
 
