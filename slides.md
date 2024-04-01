@@ -220,6 +220,18 @@ graph TD;
 ```mermaid
 graph TD;
     A --> B;
+    B --> C;
+    C --> D;
+    D --> B;
+    A --> C;
+    B --> D;
+```
+
+---
+
+```mermaid
+graph TD;
+    A --> B;
     C --> D;
     A --> F;
     D --> G;
