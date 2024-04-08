@@ -435,7 +435,7 @@ end function
 # BFS
 Código
 
-<<< @/snippets/bfs.cpp {all|1|4-7|10-11|14-15|17|19|20|25|26|27-28|all}{maxHeight:'400px'}
+<<< @/snippets/bfs.cpp {all|3-7|8-10|11-29|11|13-15|16|18-28|21-22|23-27|all}{maxHeight:'400px'}
 
 ---
 
@@ -494,22 +494,7 @@ end function
 # DFS
 Código
 
-```cpp {all|5|6|10-11|12-13|all} {maxHeight:'400px'}
-void Graph::DFS(int v)
-{
-    // Mark the current node as visited and
-    // print it
-    visited[v] = true;
-    cout << v << " ";
- 
-    // Recur for all the vertices adjacent
-    // to this vertex
-    list<int>::iterator i;
-    for (i = adj[v].begin(); i != adj[v].end(); ++i)
-        if (!visited[*i])
-            DFS(*i);
-}
-```
+<<< @/snippets/dfs.cpp {all|1-8|3-5|6|10-24|12|13|15-23|20-23|22|all}{maxHeight:'400px'}
 
 ---
 
@@ -537,7 +522,7 @@ Un ordenamiento topológico de un grafo dirigido es **una** secuencia lineal de 
 </div>
 <br>
 
-> Si el grafo tiene ciclos, no existe un orden topológico.
+> ⚠️ Si el grafo tiene ciclos, no existe un orden topológico.
 
 ---
 
@@ -563,138 +548,7 @@ Pseudocódigo
 # Orden topológico
 Algoritmo de Kahn
 
-```cpp {all|7-25|27-36|40|46|52-57|61-64|67|72|78|82-84|91-92|95-96|78|102|108-110|all} {maxHeight:'400px'}
-// A C++ program to print topological
-// sorting of a graph using indegrees.
-#include <bits/stdc++.h>
-using namespace std;
- 
-// Class to represent a graph
-class Graph {
-    // No. of vertices'
-    int V;
- 
-    // Pointer to an array containing
-    // adjacency listsList
-    list<int>* adj;
- 
-public:
-    // Constructor
-    Graph(int V);
- 
-    // Function to add an edge to graph
-    void addEdge(int u, int v);
- 
-    // prints a Topological Sort of
-    // the complete graph
-    void topologicalSort();
-};
- 
-Graph::Graph(int V)
-{
-    this->V = V;
-    adj = new list<int>[V];
-}
- 
-void Graph::addEdge(int u, int v)
-{
-    adj[u].push_back(v);
-}
- 
-// The function to do
-// Topological Sort.
-void Graph::topologicalSort()
-{
-    // Create a vector to store
-    // indegrees of all
-    // vertices. Initialize all
-    // indegrees as 0.
-    vector<int> in_degree(V, 0);
- 
-    // Traverse adjacency lists
-    // to fill indegrees of
-    // vertices.  This step
-    // takes O(V+E) time
-    for (int u = 0; u < V; u++) {
-        list<int>::iterator itr;
-        for (itr = adj[u].begin();
-             itr != adj[u].end(); itr++)
-            in_degree[*itr]++;
-    }
- 
-    // Create an queue and enqueue
-    // all vertices with indegree 0
-    queue<int> q;
-    for (int i = 0; i < V; i++)
-        if (in_degree[i] == 0)
-            q.push(i);
- 
-    // Initialize count of visited vertices
-    int cnt = 0;
- 
-    // Create a vector to store
-    // result (A topological
-    // ordering of the vertices)
-    vector<int> top_order;
- 
-    // One by one dequeue vertices
-    // from queue and enqueue
-    // adjacents if indegree of
-    // adjacent becomes 0
-    while (!q.empty()) {
-        // Extract front of queue
-        // (or perform dequeue)
-        // and add it to topological order
-        int u = q.front();
-        q.pop();
-        top_order.push_back(u);
- 
-        // Iterate through all its
-        // neighbouring nodes
-        // of dequeued node u and
-        // decrease their in-degree
-        // by 1
-        list<int>::iterator itr;
-        for (itr = adj[u].begin(); itr != adj[u].end(); itr++)
-            // If in-degree becomes zero,
-            // add it to queue
-            if (--in_degree[*itr] == 0)
-                q.push(*itr);
- 
-        cnt++;
-    }
- 
-    // Check if there was a cycle
-    if (cnt != V) {
-        cout << "There exists a cycle in the graph\n";
-        return;
-    }
- 
-    // Print topological order
-    for (int i = 0; i < top_order.size(); i++)
-        cout << top_order[i] << " ";
-    cout << endl;
-}
- 
-// Driver program to test above functions
-int main()
-{
-    // Create a graph given in the
-    // above diagram
-    Graph g(6);
-    g.addEdge(5, 2);
-    g.addEdge(5, 0);
-    g.addEdge(4, 0);
-    g.addEdge(4, 1);
-    g.addEdge(2, 3);
-    g.addEdge(3, 1);
- 
-    cout << "Following is a Topological Sort of\n";
-    g.topologicalSort();
- 
-    return 0;
-}
-```
+<<< @/snippets/kahn.cpp {all|3|5-13|10|15-20|22-37|24|26|28-35|32|33|28-35|all}{maxHeight:'400px'}
 
 --- 
 layout: center
@@ -750,7 +604,7 @@ Camino más corto desde un vértice a todos los demás
 
 <br>
 
-> Nota: El algoritmo de Dijkstra no funciona con grafos dirigidos con aristas de peso negativo.
+> 🛑 Nota: El algoritmo de Dijkstra no funciona con grafos dirigidos con aristas de peso negativo.
 
 ---
 
@@ -772,37 +626,16 @@ Dijkstra es un algoritmo para encontrar el camino más corto en un grafo pondera
 --- 
 
 # Algoritmo de Dijkstra
-Código
+Código (versión simple)
 
-```cpp {all|2-3|5-6|8|9-11|13|14|16|17-18|20|21|22-23|all} {maxHeight:'400px'}
-void dijkstra(int start, int n) {
-    for (int i = 0; i < n; i++) distances[i] = INF;
-    distances[start] = 0;
+<<< @/snippets/dijkstra_v1.cpp {all|3-5|7-11|12|14-44|14|16-22|24-26|28-29|32-44|38|39-40|46-47|all}{maxHeight:'400px'}
 
-    PriorityQueue pq;
-    pq.push({0, start});
+---
 
-    while (!pq.empty()) {
-        int dist = pq.top().first;
-        int node = pq.top().second;
-        pq.pop();
+# Algoritmo de Dijkstra
+Código (versión heap)
 
-        if (visited[node]) continue;
-        visited[node] = true;
-
-        for (int i = 0; i < edge_count[node]; i++) {
-            int neighbor = edges[graph[node][i]].v;
-            int weight = edges[graph[node][i]].w;
-
-            int new_dist = distances[node] + weight;
-            if (new_dist < distances[neighbor]) {
-                distances[neighbor] = new_dist;
-                pq.push({new_dist, neighbor});
-            }
-        }
-    }
-}
-```
+<<< @/snippets/dijkstra_v2.cpp {all|1-6|9-11|13|15-17|19-23|24|26|27|29-49|30-32|34|35|37-49|39-41|44|45-47|53-54|all}{maxHeight:'400px'}
 
 ---
 
@@ -847,46 +680,39 @@ Ideas generales
 # Bellman-Ford
 Código
 
-```cpp {all||all} {maxHeight:'400px'}
-void bellman_ford(int start) {
-    for (int i = 0; i < n; ++i) distances[i] = INF;
-    distances[start] = 0;
-
-    queue[rear++] = start;
-    in_queue[start] = true;
-
-    while (front != rear) {
-        int u = queue[front++];
-        in_queue[u] = false;
-
-        for (int i = 0; i < m; ++i) {
-            if (edges[i].u == u) {
-                int v = edges[i].v;
-                int w = edges[i].w;
-
-                if (distances[u] != INF && distances[u] + w < distances[v]) {
-                    distances[v] = distances[u] + w;
-
-                    if (!in_queue[v]) {
-                        queue[rear++] = v;
-                        in_queue[v] = true;
-                    }
-                }
-            }
-        }
-    }
-}
-```
+<<< @/snippets/bellman_ford.cpp {all|4-9|10|12-15|17-36|18|19|21|22-36|23-25|27|28-29|30-33|all}{maxHeight:'400px'}
 
 ---
 
 # Floyd-Warshall
+Camino más corto entre todos los pares de vértices
+
+- El algoritmo de Floyd-Warshall es un algoritmo para encontrar el camino más corto entre todos los pares de vértices en un grafo ponderado.
+- Puede manejar aristas de peso negativo, pero no ciclos negativos (un ciclo negativo es un ciclo cuya suma de pesos es negativa).
+- Tiene un tiempo de ejecución de $O(|V|^3)$.
+- Es un algoritmo muy simple y fácil de implementar.
 
 ---
-layout: center
-class: text-center
+
+# Floyd-Warshall
+Idea general
+
+1. Inicializa una matriz de distancias con los pesos de las aristas.
+2. Para cada par de nodos, verifica si hay un camino más corto pasando por un nodo intermedio.
+3. Actualiza la matriz de distancias si se encuentra un camino más corto.
+
+<br>
+
+> La matriz de distancias es una matriz cuadrada donde cada elemento $d_{ij}$ representa la distancia entre los nodos $i$ y $j$.
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    <a href="https://www.cs.usfca.edu/~galles/visualization/Floyd.html" target="_blank" class="underline">Visualización</a>
+</footer>
+    
+
 ---
 
-# Learn More
+# Floyd-Warshall
+Código
 
-<!-- [Documentations](https://sli.dev) · [GitHub](https://github.com/slidevjs/slidev) · [Showcases](https://sli.dev/showcases.html) -->
+<<< @/snippets/floyd_warshall.cpp {all|5-6|8-15|18-25|29-38|32|33-34|all}{maxHeight:'400px'}

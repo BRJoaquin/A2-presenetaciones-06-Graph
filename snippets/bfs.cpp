@@ -1,32 +1,31 @@
-void Graph_BFS(Graph* g, int s)
+void BFS(int from)
 {
-    // Mark all the vertices as not visited
-    bool visited[MAX_VERTICES];
-    for (int i = 0; i < g->V; i++) {
-        visited[i] = false;
+    bool *in_queue = new bool[V + 1]();
+    for (int i = 0; i <= V; i++)
+    {
+        in_queue[i] = false;
     }
- 
-    // Create a queue for BFS
-    int queue[MAX_VERTICES];
-    int front = 0, rear = 0;
- 
-    // Mark the current node as visited and enqueue it
-    visited[s] = true;
-    queue[rear++] = s;
- 
-    while (front != rear) {
-        // Dequeue a vertex from queue and print it
-        s = queue[front++];
-        printf("%d ", s);
- 
-        // Get all adjacent vertices of the dequeued
-        // vertex s. If a adjacent has not been visited,
-        // then mark it visited and enqueue it
-        for (int adjacent = 0; adjacent < g->V; adjacent++) {
-            if (g->adj[s][adjacent] && !visited[adjacent]) {
-                visited[adjacent] = true;
-                queue[rear++] = adjacent;
+    Queue<Tuple<int, int>> *queue = new QueueImp<Tuple<int, int>>();
+    queue->enqueue(Tuple<int, int>(from, 0));
+    in_queue[from] = true;
+    while (!queue->isEmpty())
+    {
+        Tuple<int, int> node = queue->dequeue();
+        int v = node.getFirst();
+        int step = node.getSecond();
+        // Process the node
+        Edge edge;
+        Iterator<Edge> *it = adjacents(v);
+        while (it->hasNext())
+        {
+            edge = it->next();
+            int w = edge.to;
+            if (!in_queue[w])
+            {
+                in_queue[w] = true;
+                queue->enqueue(Tuple<int, int>(w, step + 1));
             }
         }
     }
+    delete[] in_queue;
 }
