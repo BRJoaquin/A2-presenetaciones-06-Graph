@@ -184,6 +184,8 @@ Cómo se disponen los nodos de un grafo
 
 ---
 
+# Conexidad - Ejemplo 1
+
 ```mermaid
 graph LR;
     A <--> B;
@@ -196,6 +198,8 @@ graph LR;
 
 ---
 
+# Conexidad - Ejemplo 2
+
 ```mermaid
 graph LR;
     A <--> B;
@@ -204,6 +208,8 @@ graph LR;
 ```
 
 ---
+
+# Conexidad - Ejemplo 3
 
 ```mermaid
 graph TD;
@@ -217,6 +223,8 @@ graph TD;
 
 ---
 
+# Conexidad - Ejemplo 4
+
 ```mermaid
 graph TD;
     A --> B;
@@ -228,6 +236,8 @@ graph TD;
 ```
 
 ---
+
+# Conexidad - Ejemplo 5
 
 ```mermaid
 graph TD;
@@ -902,4 +912,55 @@ Con Conjunto Disjunto
 
 <<< @/snippets/kruskal.cpp {all|2-3|5-9|12-14|17|19-29|20-21|23|25-27|31|all}{maxHeight:'400px'}
 
+
 ---
+layout: section
+---
+
+# Resumen de Algoritmos
+
+---
+
+| Algoritmo            | Complejidad Temporal                | Uso                                                | Comentarios                                                                                 |
+|----------------------|-------------------------------------|----------------------------------------------------|---------------------------------------------------------------------------------------------|
+| **BFS**              | $O(V + E)$                          | Recorrido de grafos                                | Óptimo para encontrar la distancia más corta en grafos no ponderados; usa una cola.         |
+| **DFS**              | $O(V + E)$                          | Recorrido de grafos                                | Utilizado para clasificación topológica y detección de ciclos; usa una pila o recursividad. |
+| **Dijkstra**         | $O((V + E) \log V)$ con min-heap    | Camino más corto en grafos ponderados              | No apto para aristas de peso negativo.                                                      |
+| **Bellman-Ford**     | $O(V \cdot E)$                      | Camino más corto en grafos ponderados              | Puede manejar aristas de peso negativo; detecta ciclos negativos.                           |
+| **Floyd-Warshall**   | $O(V^3)$                            | Camino más corto entre todos los pares de vértices | Puede manejar aristas de peso negativo; no ciclos negativos.                                |
+| **Kruskal**          | $O(E \log E)$ o $O(E \log V)$       | Árbol de cubrimiento mínimo                        | Necesita estructura de datos para conjuntos disjuntos.                                      |
+| **Prim**             | $O((V + E) \log V)$ con min-heap    | Árbol de cubrimiento mínimo                        | Similar a Dijkstra pero para MST.                                                           |
+| **Topological Sort** | $O(V + E)$                          | Ordenamiento de grafos dirigidos acíclicos (DAG)   | Usado en planificación de tareas y resolución de dependencias.                              |
+
+<v-click>
+    <img src="/jim_awkward.gif" class="absolute right-0 bottom-0 w-64" />
+</v-click>
+
+<style>
+  table {
+    width: 100%; /* Ajusta al ancho completo de la slide */
+    font-size: 0.8em; /* Reduce el tamaño de la fuente */
+  }
+  th, td {
+    padding: 0.5em; /* Espaciado interior para las celdas de la tabla */
+  }
+  th {
+    text-align: left; /* Alineación del texto de los encabezados a la izquierda */
+  }
+  td {
+    text-align: left; /* Alineación del texto de las celdas al centro */
+  }
+</style>
+
+---
+layout: center
+class: text-center
+---
+
+# Learn More
+
+[Resumen](https://publish.obsidian.md/algoritmos/TADs/Grafo)
+<br>
+<br>
+
+Bibliografia: Cap 9, Estructuras de datos y algoritmos, Mark Allen Weiss
