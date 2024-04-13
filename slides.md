@@ -716,3 +716,190 @@ Idea general
 Código
 
 <<< @/snippets/floyd_warshall.cpp {all|5-6|8-15|18-25|29-38|32|33-34|all}{maxHeight:'400px'}
+
+---
+layout: section
+---
+
+# Árbol de Cubrimiento Mínimo (MST)
+Costo mínimo para conectar todos los nodos de un grafo
+
+Veremos dos algoritmos para encontrar un árbol de cubrimiento mínimo en un grafo ponderado y no dirigido: 
+<v-click><span v-mark="{at:1, color: 'blue', type: 'highlight', animationDuration: 2000 }">Prim</span></v-click>
+<v-click> y <span v-mark="{at:2, color: 'red', type: 'highlight', animationDuration: 2000 }">Kruskal</span></v-click>
+
+---
+
+# Árbol de Cubrimiento Mínimo (MST)
+Costo mínimo para conectar todos los nodos de un grafo
+
+Un Árbol de Cubrimiento Mínimo es un subconjunto de aristas que conecta todos los vértices en un grafo sin ciclos y con el menor costo total posible. Los árboles de cubrimiento mínimo son fundamentales en 
+aplicaciones como la planificación de redes de telecomunicaciones y la construcción de caminos eficientes. 
+
+<v-click>Se aplican a grafos <span v-mark="{at:1, color: 'blue', type: 'highlight', animationDuration: 2000 }">no dirigidos y ponderados.</span></v-click>
+
+<v-click>
+    <div style="background-color: white; padding: 10px; margin-top: 15px;">
+        <img src="/Minimum_spanning_tree.png" class="w-80 m-auto">
+    </div>
+</v-click>
+
+---
+
+# Prim
+
+El algoritmo de Prim comienza con un vértice arbitrario y crece el MST una arista a la vez.
+
+**Idea general**:
+
+1. Inicia con un vértice.
+2. Selecciona la arista más ligera conectada al MST que no forma un ciclo.
+3. Añade el nuevo vértice al MST.
+4. Repite hasta que todos los vértices estén incluidos en el MST.
+
+<br>
+
+> 👉 Este algoritmo es muy similar al algoritmo de Dijkstra, cambia solo un par de lineas de código.
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    <a href="https://www.cs.usfca.edu/~galles/visualization/Prim.html" target="_blank" class="underline">Visualización</a>
+</footer>
+
+---
+
+# Prim - Código
+Diferencia con Dijkstra
+
+````md magic-move
+```cpp
+// Dijkstra
+Iterator<Edge>* it = graph->adjacents(minIndex);
+while (it->hasNext()) {
+    Edge edge = it->next();
+    int v = edge.to;
+    int weight = edge.weight;
+
+    if (!visited[v] && dist[v] > dist[minIndex] + weight) {
+        dist[v] = dist[minIndex] + weight;
+        parent[v] = minIndex;
+    }
+}
+```
+```cpp
+// Prim
+Iterator<Edge>* it = graph->adjacents(minIndex);
+while (it->hasNext()) {
+    Edge edge = it->next();
+    int v = edge.to;
+    int weight = edge.weight;
+
+    if (!visited[v] && dist[v] > weight) {
+        dist[v] = weight;
+        parent[v] = minIndex;
+    }
+}
+```
+````
+
+---
+
+# Prim - Conclusiones
+Las mismas que Dijkstra
+
+- **Complejidad temporal**: $O(V^2)$ o $O((V+A) \log V)$ con cola de prioridad (min heap).
+- **Estructura de datos**: Cola de prioridad (min heap) para mejorar la complejidad temporal.
+
+<div style="background-color: white; padding: 10px; margin-top: 15px;">
+    <img src="/Minimum_spanning_tree.png" class="w-80 m-auto">
+</div>
+
+---
+
+# Kruskal
+Arista por arista
+
+
+Kruskal es un algoritmo que utiliza una estructura de datos llamada **conjunto disjunto** o **MFset** (Disjoint-set) para gestionar las uniones y las búsquedas de los conjuntos de vértices.
+
+**Idea general**:
+
+1. Ordena todas las aristas de menor a mayor peso.
+2. Selecciona la arista con el menor peso.
+3. Añade la arista al MST **si no forma un ciclo** .
+4. Repite el proceso hasta $V-1$ aristas (si es conexo).
+
+---
+
+# Kruskal - Pseudocódigo
+
+```
+function Kruskal(graph)
+  sort graph.edges by weight in ascending order
+
+  initialize MST as an empty list of edges
+  initialize a counter for edges added to MST, count = 0
+
+  for each edge in graph.edges
+    if adding edge does not form a cycle in MST
+      add edge to MST
+      increment count
+    end if
+
+    if count equals graph.vertices - 1
+      break  // El MST está completo
+    end if
+  end for
+
+  return MST
+end function
+
+```
+
+---
+
+# Conjunto Disjunto (MFset)
+Estructura de datos
+
+La estructura de **Conjunto Disjunto** se utiliza para mantener un conjunto de elementos particionados en subconjuntos no superpuestos.
+
+**Operaciones básicas**:
+
+- Find: 🔍 Determina el conjunto representativo de un elemento.
+- Union/Merge: 🤝 Une dos subconjuntos en uno solo.
+
+
+Existen dos mejoras para la implementación de Conjunto Disjunto:
+- **Path Compression**: Reduce la altura de los árboles.
+- **Union by Rank**: Une el árbol más pequeño al más grande.
+
+<br>
+
+> Vamos a necesitar estas dos mejoras para Kruskal y llegar en complejidad a $O(N \log N)$, siendo $N$ la cantidad de elementos en el conjunto.
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    <a href="https://www.cs.usfca.edu/~galles/visualization/DisjointSets.html" target="_blank" class="underline">Visualización</a>
+</footer>
+    
+
+---
+
+# Conjunto Disjunto (MFset) - Código v1
+Versión simple
+
+<<< @/snippets/disjoint_v1.cpp {all|4-5|8-14|16-19|22-30|all}{maxHeight:'400px'}
+
+---
+
+# Conjunto Disjunto (MFset) - Código v2
+Versión con Path Compression y Union by Rank
+
+<<< @/snippets/disjoint_v2.cpp {all|3-6|9-16|19-26|28-47|all}{maxHeight:'400px'}
+
+---
+
+# Kruskal - Código
+Con Conjunto Disjunto
+
+<<< @/snippets/kruskal.cpp {all|2-3|5-9|12-14|17|19-29|20-21|23|25-27|31|all}{maxHeight:'400px'}
+
+---

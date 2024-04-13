@@ -33,7 +33,7 @@ void topologicalSortKahn(Graph* graph) {
                 queue->enqueue(edge.to);
             }
         }
-        delete it; // Asegúrate de liberar la memoria asignada por adjacents(u)
+        delete it;
     }
 
     delete[] inDegree; // Limpia el array de inDegree
