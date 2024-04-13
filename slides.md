@@ -1,7 +1,5 @@
 ---
 theme: default
-# random image from a curated Unsplash collection by Anthony
-# like them? see https://unsplash.com/collections/94734566/slidev
 background: https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1772&q=80
 title: Welcome to Slidev
 # apply any unocss classes to the current slide
@@ -26,10 +24,6 @@ mdc: true
     <carbon-logo-github />
   </a>
 </div>
-
-<!--
-The last comment block of each slide will be treated as slide notes. It will be visible and editable in Presenter Mode along with the slide. [Read more in the docs](https://sli.dev/guide/syntax.html#notes)
--->
 
 ---
 preload: false
@@ -364,7 +358,6 @@ Operaciones básicas
 
 ---
 
-
 | Característica         | Lista de adyacencia     | Matriz de adyacencia   |
 |------------------------|-------------------------|------------------------|
 | Espacio                | $O(V + A)$              | $O(V^2)$               |
@@ -633,7 +626,7 @@ Dijkstra es un algoritmo para encontrar el camino más corto en un grafo pondera
 
 > Visualización: https://www.cs.usfca.edu/~galles/visualization/Dijkstra.html
 
---- 
+---
 
 # Algoritmo de Dijkstra
 Código (versión simple)
@@ -837,6 +830,11 @@ Kruskal es un algoritmo que utiliza una estructura de datos llamada **conjunto d
 2. Selecciona la arista con el menor peso.
 3. Añade la arista al MST **si no forma un ciclo** .
 4. Repite el proceso hasta $V-1$ aristas (si es conexo).
+
+
+<footer class="absolute bottom-0 left-0 right-0 p-2">
+    <a href="https://www.cs.usfca.edu/~galles/visualization/Kruskal.html" target="_blank" class="underline">Visualización</a>
+</footer>
 
 ---
 
