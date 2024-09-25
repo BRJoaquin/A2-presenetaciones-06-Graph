@@ -56,4 +56,5 @@ void dijkstra(Graph* graph, int source) {
     // Limpieza
     delete[] dist;
     delete[] visited;
+    delete[] parent;
 }
