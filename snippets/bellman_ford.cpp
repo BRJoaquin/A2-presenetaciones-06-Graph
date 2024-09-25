@@ -39,5 +39,6 @@ void bellman_ford(Graph *g, int start) {
     // y parents (padres/vengo de cada nodo en el camino más corto)
 
     delete[] distances;
+    delete[] parents;
     delete[] in_queue;
 }

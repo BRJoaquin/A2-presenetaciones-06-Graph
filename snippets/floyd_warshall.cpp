@@ -36,4 +36,12 @@ void floydWarshall(Graph *g) {
             }
         }
     }
+
+    // Liberación de memoria
+    for (int i = 0; i < V; i++) {
+        delete[] dist[i];
+        delete[] parent[i];
+    }
+    delete[] dist;
+    delete[] parent;
 }
